@@ -30,6 +30,7 @@ while(datenum(date_str1)<datenum(date_str_end))
 end
 close(conn);
 close(h);
+date=datenum(date);
 end
 
 function [date,data]=sql_cmd_exec(conn,sql_cmd)
