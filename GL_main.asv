@@ -15,7 +15,7 @@ data_test0=data(40001:end,:);
 M_train=mean(data_train0);
 S_train=std(data_train0);
 
-data_train1=guiyihua(data_train0,M_train,S);
-data_train1=guiyihua(data_train0,M,S);
+data_train1=guiyihua(data_train0,M_train,S_train);
+data_test1=guiyihua(data_test0,M_train,S_train);
 
-figure,plot(1:size(date,1),datenum(date));
+% figure,plot(1:size(date,1),datenum(date)); % 时间分布不均匀，

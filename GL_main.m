@@ -18,4 +18,4 @@ S_train=std(data_train0);
 data_train1=guiyihua(data_train0,M_train,S_train);
 data_test1=guiyihua(data_test0,M_train,S_train);
 
-figure,plot(1:size(date,1),datenum(date));
+% figure,plot(1:size(date,1),datenum(date)); %采样时间分布不均匀，周期一个小时
