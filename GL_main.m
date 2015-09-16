@@ -1,5 +1,6 @@
 clc;clear all;close all;
 name_str={ '富氧率','透气性指数','CO','H2','CO2','标准风速','富氧流量','冷风流量','鼓风动能','炉腹煤气量','炉腹煤气指数','理论燃烧温度','顶压','顶压2','顶压3','富氧压力','冷风压力','全压差','热风压力','实际风速','热风温度','顶温东北','顶温西南','顶温西北','顶温东南','阻力系数','鼓风湿度','设定喷煤量','本小时实际喷煤量','上小时实际喷煤量'};
+%% 读取储存数据
 % date_str_begin=datestr([2013,02,15,00,00,00],'yyyy-mm-dd');
 % date_str_end=datestr( [2013,02,28,00,00,00],'yyyy-mm-dd');
 % [date,data]=get_data_from_sql_server('[GL1].[dbo].[ZCS1]',date_str_begin,date_str_end);
@@ -23,22 +24,22 @@ data_test0=data(40001:end,chos);
 
 % data_train0=data(1:20000,chos);
 % data_test0=data(20001:40000,chos);
-name_str=name_str(chos);
-for i1=1:size(data_train0,2)
-    i1
-    [value,threshhold]=normalize_train(data_train0(:,i1),1000);
-    data_train1(:,i1)=normalize_test(data_train0(:,i1),value,threshhold);
-    data_test1(:,i1)=normalize_test(data_test0(:,i1),value,threshhold);
-%     figure,
-%     subplot(211);hist(data_train1(:,i1),50);title(name_str(i1));
-%     subplot(212);hist(data_test1(:,i1),50);
-end
+% name_str=name_str(chos);
+% for i1=1:size(data_train0,2)
+%     i1
+%     [value,threshhold]=normalize_train(data_train0(:,i1),1000);
+%     data_train1(:,i1)=normalize_test(data_train0(:,i1),value,threshhold);
+%     data_test1(:,i1)=normalize_test(data_test0(:,i1),value,threshhold);
+% %     figure,
+% %     subplot(211);hist(data_train1(:,i1),50);title(name_str(i1));
+% %     subplot(212);hist(data_test1(:,i1),50);
+% end
 
 %% 对输入量归一化
-% M_train=mean(data_train0);
-% S_train=std(data_train0);
-% data_train1=guiyihua(data_train0,M_train,S_train);%训练集
-% data_test1=guiyihua(data_test0,M_train,S_train);%测试集
+M_train=mean(data_train0);
+S_train=std(data_train0);
+data_train1=guiyihua(data_train0,M_train,S_train);%训练集
+data_test1=guiyihua(data_test0,M_train,S_train);%测试集
 %% 
 % figure,plot(1:size(date,1),datenum(date)); %采样时间分布不均匀，周期一个小时
 %% sfa
