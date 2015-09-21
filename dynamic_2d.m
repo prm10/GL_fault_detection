@@ -22,7 +22,7 @@ function varargout = dynamic_2d(varargin)
 
 % Edit the above text to modify the response to help dynamic_2d
 
-% Last Modified by GUIDE v2.5 21-Sep-2015 09:44:36
+% Last Modified by GUIDE v2.5 21-Sep-2015 11:02:03
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -52,7 +52,8 @@ function dynamic_2d_OpeningFcn(hObject, eventdata, handles, varargin)
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to dynamic_2d (see VARARGIN)
 
-global data1 date1 sample_num sample_pos chos plot_handles auto_plot_timer;
+global data1 date1 sample_num sample_pos chos plot_handles...
+    auto_plot_timer edit_time0 edit_time1 edit_time2;
 chos=[1:26];
 load data_ÐüÁÏ_2012-03-24.mat;
 data1=data0(:,chos);
@@ -72,6 +73,7 @@ auto_plot_timer=timer(...
     'Period',0.1,...
     'ExecutionMode','fixedSpacing');
 plot_handles=handles.axes1;
+self_model_train();
 self_scatter_plot();
 % Choose default command line output for dynamic_2d
 handles.output = hObject;
@@ -193,7 +195,8 @@ function edit_time2_Callback(hObject, eventdata, handles)
 % hObject    handle to edit_time2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+global edit_time2;
+edit_time2=datenum(get(hObject,'String'));
 % Hints: get(hObject,'String') returns contents of edit_time2 as text
 %        str2double(get(hObject,'String')) returns contents of edit_time2 as a double
 
@@ -216,7 +219,8 @@ function edit_time1_Callback(hObject, eventdata, handles)
 % hObject    handle to edit_time1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+global edit_time1;
+edit_time1=datenum(get(hObject,'String'));
 % Hints: get(hObject,'String') returns contents of edit_time1 as text
 %        str2double(get(hObject,'String')) returns contents of edit_time1 as a double
 
@@ -239,24 +243,7 @@ function pushbutton_train_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_train (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-global data1 date1 T2 SPE T sample_num sample_pos;
-i1=find(date1<datenum(get(handles.edit_time1,'string')), 1, 'last' );
-i2=find(date1<datenum(get(handles.edit_time2,'string')), 1, 'last' );
-data_train0=data1(1:i1,:);
-data_validation0=data1(i1+1:i2,:);
-data_test0=data1(i2+1:end,:);
-M_train=mean(data_train0);
-S_train=std(data_train0);
-data_train1=guiyihua(data_train0,M_train,S_train);%ÑµÁ·¼¯
-data_validation1=guiyihua(data_validation0,M_train,S_train);%²âÊÔ¼¯
-data_test1=guiyihua(data_test0,M_train,S_train);%²âÊÔ¼¯
-data_all1=guiyihua(data1,M_train,S_train);%²âÊÔ¼¯
-x=data_train1';%ÑµÁ·¼¯
-[P,te]=pca(x);%ÑµÁ·Ä£ÐÍ
-y=data_all1';%²âÊÔ¼¯
-m=find(tril(ones(size(data1,2)),0)*diag(te)/sum(sum(te))<0.95,1,'last');
-[T2,SPE,T]=pca_indicater(y,P,te,m);
-
+self_model_train();
 self_scatter_plot();
 
 % figure;
@@ -287,6 +274,26 @@ flag=ud.f;
 global date1 sample_num sample_pos;
 sample_pos=sample_pos+flag;
 self_scatter_plot();
+
+function self_model_train(handles)
+global data1 date1 T2 SPE T edit_time1 edit_time2;
+i1=find(date1<edit_time1, 1, 'last' );
+i2=find(date1<edit_time2, 1, 'last' );
+data_train0=data1(1:i1,:);
+data_validation0=data1(i1+1:i2,:);
+data_test0=data1(i2+1:end,:);
+M_train=mean(data_train0);
+S_train=std(data_train0);
+data_train1=guiyihua(data_train0,M_train,S_train);%ÑµÁ·¼¯
+data_validation1=guiyihua(data_validation0,M_train,S_train);%²âÊÔ¼¯
+data_test1=guiyihua(data_test0,M_train,S_train);%²âÊÔ¼¯
+data_all1=guiyihua(data1,M_train,S_train);%²âÊÔ¼¯
+x=data_train1';%ÑµÁ·¼¯
+[P,te]=pca(x);%ÑµÁ·Ä£ÐÍ
+y=data_all1';%²âÊÔ¼¯
+m=find(tril(ones(size(data1,2)),0)*diag(te)/sum(sum(te))<0.95,1,'last');
+[T2,SPE,T]=pca_indicater(y,P,te,m);
+
 
 function edit_time_info_Callback(hObject, eventdata, handles)
 % hObject    handle to edit_time_info (see GCBO)
