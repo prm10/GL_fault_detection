@@ -29,3 +29,9 @@ date_str_end=datestr( [2013,02,28,00,00,00],'yyyy-mm-dd');
 label='Â¯Á¹';
 [date0,data0]=get_data_from_sql_server('[GL1].[dbo].[ZCS1]',date_str_begin,date_str_end);
 save(strcat('data_',label,'_',date_str_end,'.mat'),'date0','data0');
+
+date_str_begin=datestr([2012,07,01,00,00,00],'yyyy-mm-dd');
+date_str_end=datestr( [2012,10,01,00,00,00],'yyyy-mm-dd');
+label='Õı³£';
+[date0,data0]=get_data_from_sql_server('[GL1].[dbo].[ZCS1]',date_str_begin,date_str_end);
+save(strcat('data_',label,'_',date_str_end,'.mat'),'date0','data0');

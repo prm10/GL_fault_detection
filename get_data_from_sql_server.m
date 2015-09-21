@@ -23,10 +23,14 @@ while(datenum(date_str1)<datenum(date_str_end))
     sql_cmd=strcat('SELECT * FROM ',GL);
     sql_cmd=strcat(sql_cmd,' Where [时间] Between ''',date_str1,''' And ''',date_str2,''' Order By [时间]');
     [date1,data1]=sql_cmd_exec(conn,sql_cmd);
+    date_str1=datestr((datenum(date_str1)+1),'yyyy-mm-dd');
+    if size(data1,1)<=1
+        continue;
+        disp(strcat(date_str1,' 没有数据'))
+    end
     i0=i0+1;
     data=[data;data1];
     date=[date;date1];
-    date_str1=datestr((datenum(date_str1)+1),'yyyy-mm-dd');
 end
 close(conn);
 close(h);
