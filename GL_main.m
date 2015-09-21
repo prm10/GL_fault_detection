@@ -58,9 +58,9 @@ data_test1=guiyihua(data_test0,M_train,S_train);%测试集
 % subplot(2,2,4);
 % plot(Se);title('Se');
 %% pca
-m=5;
 x=data_train1';%训练集
 [P,te]=pca(x);%训练模型
+m=find(tril(ones(size(x,1)),0)*diag(te)/sum(sum(te))<0.95,1,'last');
 y=data_test1';%测试集
 [T2,SPE]=pca_indicater(y,P,te,m);
 figure;
