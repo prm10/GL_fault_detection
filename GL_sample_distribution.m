@@ -3,8 +3,8 @@ name_str={ '富氧率','透气性指数','CO','H2','CO2','标准风速','富氧流量','冷风流量
 %% 读取储存数据
 load data_正常_2012-10-01.mat;
 chos=[1:26];
-data_train0=data0(1:20000,chos);
-data_test0=data0(20001:70000,chos);
+data_train0=data0(530001:560000,chos);
+data_test0=data0(610001:650000,chos);
 %% 对输入量归一化
 M_train1=mean(data_train0);
 S_train1=std(data_train0);
@@ -27,8 +27,8 @@ hold on;
 scatter(T1(:,1),T1(:,2),'b.');
 % scatter(T2(:,1),T2(:,2),'r.');
 scatter(T22(:,1),T22(:,2),'g.');
-fh=@(x,y)x^2/te1(1)+y^2/te1(2)-20;
-ezplot(fh,[min(T1(:,1))-20,max(T1(:,1))+20,min(T1(:,2))-20,max(T1(:,2))+20]);
+% fh=@(x,y)x^2/te1(1)+y^2/te1(2)-20;
+% ezplot(fh,[min(T1(:,1))-20,max(T1(:,1))+20,min(T1(:,2))-20,max(T1(:,2))+20]);
 hold off;
 title('训练集与测试集第一第二主成分散点图');
 xlabel('t1');ylabel('t2');
@@ -41,3 +41,17 @@ legend('训练集','测试集');
 % i1=4;
 % scatter3(T22((i1-1)*4000+1:i1*4000,1),T22((i1-1)*4000+1:i1*4000,2),T22((i1-1)*4000+1:i1*4000,3),'.');
 % hold off;
+%% sfa
+% [s1,W,S2]=sfa(data_train1');%训练模型
+% s2=W*data_test11';%测试集
+% S1=s1';
+% S2=s2';
+% figure;
+% hold on;
+% scatter(S1(:,1),S1(:,2),'b.');
+% scatter(S2(:,1),S2(:,2),'g.');
+% hold off;
+% title('训练集与测试集第一第二慢成分散点图');
+% xlabel('s1');ylabel('s2');
+% legend('训练集','测试集');
+
