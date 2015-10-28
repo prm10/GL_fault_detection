@@ -26,15 +26,16 @@ while(datenum(date_str1)<datenum(date_str_end))
     date_str1=datestr((datenum(date_str1)+1),'yyyy-mm-dd');
     if size(data1,1)<=1
         continue;
-        disp(strcat(date_str1,' 没有数据'))
+        disp(strcat(date_str1,' 没有数据'));
     end
     i0=i0+1;
     data=[data;data1];
     date=[date;date1];
 end
 close(conn);
-close(h);
+waitbar(1,h,'正在转换日期格式');
 date=datenum(date);
+close(h);
 end
 
 function [date,data]=sql_cmd_exec(conn,sql_cmd)
