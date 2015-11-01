@@ -36,8 +36,8 @@ fprintf('get data from %s to %s \n',date_str_begin,date_str_end);
 % [date0,data0]=get_data_from_sql_server('[GL1].[dbo].[ZCS1]',date_str_begin,date_str_end);
 % save(strcat('data_',label,'_',date_str_end,'.mat'),'date0','data0');
 % 
-% date_str_begin=datestr([2013,01,02,00,00,00],'yyyy-mm-dd');
-% date_str_end=datestr( [2013,01,15,00,00,00],'yyyy-mm-dd');
+% date_str_begin=datestr([2013,01,10,00,00,00],'yyyy-mm-dd');
+% date_str_end=datestr( [2013,01,16,00,00,00],'yyyy-mm-dd');
 % label='ĞüÁÏ';
 % [date0,data0]=get_data_from_sql_server('[GL1].[dbo].[ZCS1]',date_str_begin,date_str_end);
 % save(strcat('data_',label,'_',date_str_end,'.mat'),'date0','data0');
