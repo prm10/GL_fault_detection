@@ -3,8 +3,8 @@ name_str={ '富氧率','透气性指数','CO','H2','CO2','标准风速','富氧流量','冷风流量
 %% 读取储存数据
 load data_正常_2012-10-01.mat;
 chos=[1:26];
-data_train0=data0(530001:560000,chos);
-data_test0=data0(610001:650000,chos);
+data_train0=data0(1:4000,chos);
+data_test0=data0(40001:440000,chos);
 %% 对输入量归一化
 M_train1=mean(data_train0);
 S_train1=std(data_train0);
@@ -26,13 +26,20 @@ figure;
 hold on;
 scatter(T1(:,1),T1(:,2),'b.');
 % scatter(T2(:,1),T2(:,2),'r.');
-scatter(T22(:,1),T22(:,2),'g.');
-% fh=@(x,y)x^2/te1(1)+y^2/te1(2)-20;
-% ezplot(fh,[min(T1(:,1))-20,max(T1(:,1))+20,min(T1(:,2))-20,max(T1(:,2))+20]);
+for i1=1:5
+    range=i1*40000;%每隔5天约40000个点
+    data1=data0(range:range+1000,chos);
+    data2=guiyihua(data1,M_train1,S_train1);
+    data3=data2*P1;
+    scatter(data3(:,1),data3(:,2),'.');
+end
+fh=@(x,y)x^2/te1(1)+y^2/te1(2)-4;
+h=ezplot(fh,[min(T1(:,1))-20,max(T1(:,1))+20,min(T1(:,2))-20,max(T1(:,2))+20]);
+set(h,'linewidth',2,'color','r','linestyle','-.');
 hold off;
 title('训练集与测试集第一第二主成分散点图');
 xlabel('t1');ylabel('t2');
-legend('训练集','测试集');
+legend('训练集','一天后','两天后','三天后','四天后','五天后','T^2阈值');
 
 % figure;
 % hold on;

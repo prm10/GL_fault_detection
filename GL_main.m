@@ -8,17 +8,22 @@ name_str={ '富氧率','透气性指数','CO','H2','CO2','标准风速','富氧流量','冷风流量
 
 % datestr(date0(45506),'yyyy-mm-dd HH:MM:SS')
 
-load data.mat;
+load data_正常_2012-10-01.mat;
 % data=data(1:1000,:);
 % data=data(80000:90000,:);
 % for i1=1:size(data,2)
 %     figure,plot(data(:,i1));title(num2str(i1));
 % end
 % figure,plot(data);
-chos=[1,2,4,6:12,14:26];
-data_train0=data(1:40000,chos);
-data_test0=data(40001:end,chos);
-
+chos=[8 19 21];
+data_train0=data0(1:3000,chos);
+data_test0=data0(40001:end,chos);
+name_str=name_str(:,chos);
+figure;
+subplot(311);plot(data_train0(:,1));ylabel(name_str{1});
+subplot(312);plot(data_train0(:,2));ylabel(name_str{2});
+subplot(313);plot(data_train0(:,3));ylabel(name_str{3});
+a;
 %% 统计输入量的概率密度分布，并变换到正态分布
 % figure,hist(data_train0(:,3),100);
 
