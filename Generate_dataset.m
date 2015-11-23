@@ -75,10 +75,11 @@ for i1=1:3
     for i2=1:size(range,1)
         a=(date0>=range(i2,1))&(date0<=range(i2,2));
         input0=[input0;data1(a,:)];
-        l=zeros(sum(a),max(label));
+        l=zeros(sum(a),5);
         l(:,label(i2))=1;
         label0=[label0;l];
     end
+    save(strcat('K:\GL_data\',num2str(No(i1)),'\data_normalized.mat'),'date0','data1');
     save(strcat('K:\GL_data\',num2str(No(i1)),'\data_labeled.mat'),'input0','label0');
 end
 
