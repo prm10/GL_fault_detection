@@ -19,6 +19,8 @@ $RECYCLE.BIN/
 
 # matlab temporary file 
 *.asv
+*.mat
+*.jpg
 
 # =========================
 # Operating System Files
@@ -48,3 +50,4 @@ Temporary Items
 ~$任务记录.docx
 ~$字段名.xlsx
 *.tmp
+
