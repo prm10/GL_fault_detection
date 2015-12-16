@@ -68,18 +68,21 @@ for i1=1:3
     M=mean(data0);
     S=max(std(data0),1e-3*ones(1,size(data0,2)));
     data1=(data0-ones(length(date0),1)*M)./(ones(length(date0),1)*S);
+    date1=date0;
     range=[datenum(GL{i1}(:,1)),datenum(GL{i1}(:,2))];
     label=str2double(GL{i1}(:,3));
     input0=cell(0);
+    time0=cell(0);
     label0=cell(0);
     for i2=1:size(range,1)
         a=(date0>=range(i2,1))&(date0<=range(i2,2));
-        input0=[input0;data1(a,:)];
+        input0=[input0;data0(a,:)];
+        time0=[time0;date0(a,:)];
         l=zeros(sum(a),5);
         l(:,label(i2))=1;
         label0=[label0;l];
     end
     save(strcat('K:\GL_data\',num2str(No(i1)),'\data_normalized.mat'),'date0','data1');
-    save(strcat('K:\GL_data\',num2str(No(i1)),'\data_labeled.mat'),'input0','label0');
+    save(strcat('K:\GL_data\',num2str(No(i1)),'\data_labeled.mat'),'input0','time0','label0','S','M');
 end
 
