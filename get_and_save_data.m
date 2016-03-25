@@ -18,15 +18,15 @@ clc;clear;close all;
 % fprintf('get data from %s to %s \n',date_str_begin,date_str_end);
 
 %% new No2. GL7 from 2013-07-04 to 2015-12-10
-%{
+%
 No=2;
 GL=7;
-date_str_begin=datestr([2014,01,25,00,00,00],'yyyy-mm-dd');
-date_str_end=datestr([2015,01,01,00,00,00],'yyyy-mm-dd');
+date_str_begin=datestr([2014,02,01,00,00,00],'yyyy-mm-dd');
+date_str_end=datestr([2014,12,12,00,00,00],'yyyy-mm-dd');
 [date0,data0]=get_data_from_sql_server(strcat('[GL',num2str(GL),'].[dbo].[ZCS',num2str(GL),']'),date_str_begin,date_str_end);
-save(strcat('F:\GL_data\',num2str(No),'\data2014.mat'),'date0','data0');
+save(strcat('..\GL_data\',num2str(No),'\data.mat'),'date0','data0');
 fprintf('get data from %s to %s \n',date_str_begin,date_str_end);
-
+%{
 No=2;
 GL=7;
 date_str_begin=datestr([2015,01,01,00,00,00],'yyyy-mm-dd');

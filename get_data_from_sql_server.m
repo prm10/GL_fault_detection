@@ -12,7 +12,8 @@ date_str1=date_str_begin;
 date_str2=date_str_begin;
 original_time=datenum(date_str1);
 % conn=database('matlab_sqlserver','sa','LiuGangData!419');
-conn=database('gl','PRM14-LENOVO-PC\PRM','');
+% conn=database('gl','PRM14-LENOVO-PC\PRM','');
+conn=database('matlab_sqlserver','','');
 data=[];
 date=[];
 
